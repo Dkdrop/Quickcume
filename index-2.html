@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>QuickCum</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff8f2;--card:#fff;--ink:#22140d;--mut:#8a746a;--pri:#ff6a13;--onpri:#fff;--acc:#ffb703;--ok:#13a05a;--line:#f6e4d6;--grad:linear-gradient(135deg,#ff8a1f,#ff4d2e);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#150e0a;--card:#241812;--ink:#fff1e8;--mut:#c4a898;--pri:#ff8a3d;--onpri:#22140d;--line:#3d2b21}}
+:root[data-theme="dark"]{--bg:#150e0a;--card:#241812;--ink:#fff1e8;--mut:#c4a898;--pri:#ff8a3d;--onpri:#22140d;--line:#3d2b21}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Figtree,system-ui,sans-serif;font-size:15px}
+h1,h2,h3,.logo{font-family:"Bricolage Grotesque",Figtree,sans-serif;margin:0}
+#app{max-width:480px;margin:0 auto;min-height:100vh;padding:14px 14px 90px}
+.logo{display:flex;align-items:center;gap:8px;font-size:25px;font-weight:800;letter-spacing:-.04em;color:var(--ink)}.logo b{color:var(--pri);background:none;padding:0;margin:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}
+input,select{width:100%;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);font:inherit;margin:5px 0 10px}
+label{font-size:13px;color:var(--mut)}
+button{font:inherit;cursor:pointer;border:0;border-radius:12px;padding:11px 16px;font-weight:600;background:var(--pri);color:var(--onpri)}
+button:focus-visible,input:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+button.ghost{background:transparent;color:var(--pri);border:1px solid var(--line)}
+button.full{width:100%}button.sm{padding:7px 12px;font-size:13px}
+.seg{display:flex;background:var(--bg);border-radius:12px;padding:4px;gap:4px;margin-bottom:14px}
+.seg button{flex:1;background:transparent;color:var(--mut)}.seg button.on{background:var(--card);color:var(--ink);box-shadow:0 1px 3px #0002}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.prod{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px}
+.em{font-size:34px}.mut{color:var(--mut);font-size:13px}.price{font-weight:800;font-size:17px}
+.step{display:inline-flex;align-items:center;gap:8px;background:var(--pri);color:var(--onpri);border-radius:12px;padding:3px}
+.step button{padding:4px 11px;background:transparent;color:inherit}
+.bar{position:fixed;left:0;right:0;bottom:0;padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));background:var(--bg)}
+.bar button{max-width:452px;margin:0 auto;display:flex;justify-content:space-between;width:100%;background:var(--acc);color:#14173d;font-weight:800;padding:14px 18px}
+.pill{font-size:12px;font-weight:600;padding:3px 9px;border-radius:99px;background:var(--line);color:var(--mut)}
+.pill.ok{background:#13a05a22;color:var(--ok)}.pill.wait{background:#ffb40033;color:#a06b00}
+.track{display:flex;gap:4px;margin-top:10px}.track i{flex:1;height:5px;border-radius:9px;background:var(--line)}.track i.on{background:var(--ok)}
+.sheet{position:fixed;inset:0;background:#0008;display:flex;align-items:flex-end;z-index:5}
+.sheet>div{background:var(--bg);width:100%;max-width:480px;margin:0 auto;border-radius:20px 20px 0 0;padding:16px;max-height:88vh;overflow:auto}
+.opt{display:flex;gap:10px;align-items:center;padding:11px;border:1px solid var(--line);border-radius:12px;margin-bottom:8px;background:var(--card)}
+.opt input{width:auto;margin:0}.opt.sel{border-color:var(--pri)}
+.sw{width:46px;height:26px;border-radius:99px;background:var(--line);position:relative;padding:0}
+.sw:after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:.2s}
+.sw.on{background:var(--ok)}.sw.on:after{left:23px}
+.toast{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;z-index:9;font-weight:600}
+.scroll{overflow-x:auto}.map{width:100%;height:auto;background:var(--bg);border-radius:12px;margin-top:10px}.seg button{padding:10px 6px}.seg button.on{background:var(--pri);color:var(--onpri);box-shadow:0 4px 12px #ff6a1344}button{background:var(--grad)}button:disabled{opacity:.5;cursor:default}body{background:radial-gradient(520px 280px at 100% -40px,#ff6a1330,transparent),var(--bg);background-attachment:fixed}.card,.prod{border-radius:20px;box-shadow:0 6px 22px #ff6a1310}.tile{height:84px;border-radius:16px;background:linear-gradient(140deg,#fff0e4,#ffd9bd);display:grid;place-items:center;font-size:40px}.eta{font-size:12px;font-weight:700;color:var(--pri);margin-top:3px}.hero{background:var(--grad);color:#fff;border-radius:26px;padding:18px;margin-bottom:12px;position:relative;overflow:hidden}.hero:after{content:'';position:absolute;right:-40px;top:-40px;width:150px;height:150px;border-radius:50%;background:#ffffff26;pointer-events:none}.hero h2{font-size:28px;line-height:1.05;letter-spacing:-.03em;margin:8px 0 0}.hero input{background:#fff;color:#22140d;border:0;border-radius:14px;margin:14px 0 0;box-shadow:0 4px 14px #0003;position:relative}.badge{display:inline-block;background:#fff;color:#ff5a14;font-weight:800;font-size:12px;padding:5px 10px;border-radius:99px}.mut2{font-size:13px;opacity:.95;margin-top:10px}.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:8px}.chip{flex:none;background:var(--card);color:var(--ink);border:1px solid var(--line);padding:9px 14px;border-radius:99px}.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}.offer{background:color-mix(in srgb,var(--pri) 12%,var(--card));border:1px dashed var(--pri);color:var(--pri);padding:10px 14px;border-radius:14px;margin-bottom:12px;font-size:14px}.bar button{background:var(--grad);color:#fff;border-radius:18px;box-shadow:0 10px 24px #ff6a1355}
+</style></head><body><div id="app"></div>
+<script>
+const $=s=>document.querySelector(s),esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const FEE=0.05,CATS={'🥛':'Dairy','🌾':'Grocery','💊':'Pharmacy','🍌':'Fresh','🍎':'Fresh','🥬':'Fresh','🍜':'Snacks','🧴':'Home','📦':'Other'},LOGO=`<div class="logo"><svg width="36" height="36" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="10" fill="#ff6a13"/><path d="M18.5 4.5 8 18h7l-2 9.5L24 13h-7z" fill="#fff"/><path d="M3.5 22h4M2.5 17.5h3.5" stroke="#fff" stroke-opacity=".65" stroke-width="1.8" stroke-linecap="round"/></svg><span>Quick<b>Cum</b></span></div>`;
+let S={screen:'login',role:'customer',tab:'shop',user:null,loc:null,q:'',cart:{},sheet:null,pay:'COD',verifying:null,
+ products:[
+  {id:1,name:'Amul Milk 1L',price:68,shop:'Sharma Kirana',dist:0.4,em:'🥛',on:1},
+  {id:2,name:'Aashirvaad Atta 5kg',price:285,shop:'Sharma Kirana',dist:0.4,em:'🌾',on:1},
+  {id:3,name:'Paracetamol Strip',price:32,shop:'City Pharmacy',dist:0.9,em:'💊',on:1},
+  {id:4,name:'Bananas (6)',price:54,shop:'Fresh Mart',dist:1.2,em:'🍌',on:1},
+  {id:5,name:'Maggi 4-pack',price:60,shop:'Fresh Mart',dist:1.2,em:'🍜',on:1},
+  {id:6,name:'Dettol Handwash',price:99,shop:'City Pharmacy',dist:0.9,em:'🧴',on:0}],
+ orders:[],nid:100,online:false,cat:'All'};
+const set=o=>{Object.assign(S,o);render()};
+function toast(m){const t=document.createElement('div');t.className='toast';t.textContent=m;document.body.append(t);setTimeout(()=>t.remove(),2200)}
+const inr=n=>'₹'+n.toLocaleString('en-IN');
+const emojiFor=n=>{n=n.toLowerCase();return/milk|curd|paneer/.test(n)?'🥛':/rice|atta|dal/.test(n)?'🌾':/tablet|strip|med/.test(n)?'💊':/fruit|apple|banana/.test(n)?'🍎':/veg|onion|tomato|potato/.test(n)?'🥬':/soap|wash|clean/.test(n)?'🧴':'📦'};
+
+function login(){
+ const n=$('#n').value.trim(),p=$('#p').value.trim();
+ if(!n)return toast('Enter your name');
+ if(!/^\d{10}$/.test(p))return toast('Enter a 10-digit mobile number');
+ if(S.role==='retailer'){
+  const g=$('#g').value.trim().toUpperCase();
+  if(!/^\d{2}[A-Z]{5}\d{4}[A-Z][1-9A-Z]Z[0-9A-Z]$/.test(g))return toast('GSTIN must be 15 characters, e.g. 29ABCDE1234F1Z5');
+  const steps=['Checking GSTIN format','Matching with GST records','Verifying shop details'];
+  let i=0;set({verifying:steps[0]});
+  const t=setInterval(()=>{i++;if(i<steps.length)set({verifying:steps[i]});else{clearInterval(t);set({verifying:null,user:{name:n,phone:p,gstin:g},screen:'ret',tab:'prod'});toast('Verified. Welcome, '+n)}},1100);
+ }else if(S.role==='rider'){const v=$('#v').value.trim().toUpperCase();if(v.length<6)return toast('Enter your vehicle number');set({user:{name:n,phone:p,veh:v},screen:'rider',tab:'rreq',online:false})}else set({user:{name:n,phone:p},screen:'cust',tab:'shop'});
+}
+function shareLoc(){
+ const ok=t=>set({loc:t});
+ if(!navigator.geolocation)return ok('Near you (approx.)');
+ navigator.geolocation.getCurrentPosition(pos=>ok(pos.coords.latitude.toFixed(3)+', '+pos.coords.longitude.toFixed(3)),()=>ok('Near you (approx.)'),{timeout:6000});
+}
+const cartItems=()=>Object.entries(S.cart).map(([id,q])=>({p:S.products.find(x=>x.id==id),q})).filter(x=>x.p&&x.q>0);
+const cartTotal=()=>cartItems().reduce((a,x)=>a+x.p.price*x.q,0);
+function qty(id,d){S.cart[id]=Math.max(0,(S.cart[id]||0)+d);render()}
+function place(){
+ const by={};cartItems().forEach(x=>(by[x.p.shop]=by[x.p.shop]||[]).push(x));
+ Object.entries(by).forEach(([shop,items])=>{
+  const o={id:S.nid++,shop,customer:S.user.name,loc:S.loc,items:items.map(x=>({name:x.p.name,q:x.q,price:x.p.price})),total:items.reduce((a,x)=>a+x.p.price*x.q,0),pay:S.pay,st:0};
+  S.orders.unshift(o);
+  if(!(S.user&&S.screen==='cust'&&S.retailerShop===shop)) setTimeout(()=>{if(o.st===0)adv(o)},3000);
+ });
+ S.cart={};S.sheet=null;S.tab='orders';render();toast('Order placed');
+}
+function adv(o){if(o.st!==0)return;o.st=1;render();setTimeout(()=>{if(!o.rider&&!S.online){o.rider='Ravi (demo)';o.rs=1;o.pos=0;o.demo=1;render()}},15000)}
+const eta=o=>Math.max(1,Math.ceil((2-o.pos)*4))+' min';
+function mapSvg(o){const R=[30,95],Sh=[115,35],C=[265,75],a=o.pos<=1?[R,Sh,o.pos]:[Sh,C,o.pos-1],x=a[0][0]+(a[1][0]-a[0][0])*a[2],y=a[0][1]+(a[1][1]-a[0][1])*a[2];return `<svg class='map' viewBox='0 0 300 120' role='img' aria-label='Live rider tracking'><polyline points='30,95 115,35 265,75' fill='none' stroke='var(--line)' stroke-width='4' stroke-dasharray='6 6'/><text x='115' y='26' text-anchor='middle' font-size='16'>🏪</text><text x='265' y='68' text-anchor='middle' font-size='16'>🏠</text><circle cx='${x}' cy='${y}' r='11' fill='var(--acc)' stroke='var(--ink)' stroke-width='2'/><text x='${x}' y='${y+5}' text-anchor='middle' font-size='13'>🛵</text></svg>`}
+function riderBlock(o){return o.rider?`<div class='row' style='margin-top:10px'><span>🛵 <b>${esc(o.rider)}</b> ${o.rs===1?'is heading to the shop':o.rs===2?'is on the way':'delivered your order'}</span>${o.rs<3?`<span class='pill wait'>${eta(o)}</span>`:''}</div>${o.rs<3?mapSvg(o):''}`:(o.st===1?`<div class='mut' style='margin-top:8px'>Finding a delivery partner…</div>`:'')}
+setInterval(()=>{let ch=0;S.orders.forEach(o=>{if(o.rider&&(o.rs===1||o.rs===2)){if(o.pos<o.rs){o.pos=Math.min(o.rs,o.pos+0.05);ch=1}else if(o.demo){o.rs++;ch=1;o.st=o.rs===3?3:2}}});const f=document.activeElement;if(ch&&S.screen!=='login'&&!(f&&f.tagName==='INPUT'))render()},700);
+function rAccept(id){const o=S.orders.find(x=>x.id===id);if(S.orders.some(x=>x.rider===S.user.name&&x.rs>0&&x.rs<3))return toast('Finish your current delivery first');o.rider=S.user.name;o.rs=1;o.pos=0;render();toast('Delivery accepted')}
+function rStep(id){const o=S.orders.find(x=>x.id===id);if(o.rs===1&&o.pos>=1){o.rs=2;o.st=2}else if(o.rs===2&&o.pos>=2){o.rs=3;o.st=3;toast('Delivered. You earned ₹30')}render()}
+function viewRider(){const me=S.user.name,mine=S.orders.filter(o=>o.rider===me),act=mine.find(o=>o.rs>0&&o.rs<3),done=mine.filter(o=>o.rs===3);
+let h=head()+`<div class='card row'><div><b>${esc(me)}</b><div class='mut'>${esc(S.user.veh)} · QuickCum Partner</div></div><button class='sw ${S.online?'on':''}' onclick='set({online:!S.online})' role='switch' aria-checked='${S.online}' aria-label='Go online'></button></div><div class='seg'><button class='${S.tab==='rreq'?'on':''}' onclick='set({tab:"rreq"})'>Deliveries</button><button class='${S.tab==='rearn'?'on':''}' onclick='set({tab:"rearn"})'>Earnings</button></div>`;
+if(S.tab==='rearn')return h+`<div class='card'><div class='row'><span class='mut'>Deliveries completed</span><b>${done.length}</b></div><div class='row'><span class='mut'>Earned (₹30 per delivery)</span><b>${inr(done.length*30)}</b></div><div class='row'><span class='mut'>Cash collected (COD)</span><b>${inr(done.filter(o=>o.pay==='COD').reduce((a,o)=>a+o.total,0))}</b></div></div>`;
+if(act){const ready=act.rs===1?act.pos>=1:act.pos>=2;h+=`<div class='card'><div class='row'><b>Active delivery</b><span class='pill wait'>${act.rs===1?'Go to shop':'Deliver to customer'}</span></div><div style='margin-top:8px'>${act.rs===1?'Pickup: <b>'+esc(act.shop)+'</b>':'Drop: <b>'+esc(act.customer)+'</b> · '+esc(act.loc||'')}</div><div class='mut'>${act.items.map(i=>esc(i.name)+' × '+i.q).join(', ')}</div>${mapSvg(act)}<button class='full' style='margin-top:10px' ${ready?'':'disabled'} onclick='rStep(${act.id})'>${act.rs===1?(ready?'Picked up order':'Heading to shop…'):(ready?(act.pay==='COD'?'Collect '+inr(act.total)+' and mark delivered':'Mark delivered'):'On the way…')}</button></div>`}
+if(!S.online)return h+(act?'':`<div class='card mut'>You are offline. Go online to receive delivery requests.</div>`);
+const reqs=S.orders.filter(o=>o.st===1&&!o.rider);
+if(!act)h+=reqs.length?reqs.map(o=>`<div class='card'><div class='row'><b>New request</b><span class='price'>₹30</span></div><div class='mut'>Pickup ${esc(o.shop)} → drop ${esc(o.customer)}</div><div class='mut'>${o.items.length} item${o.items.length>1?'s':''} · ${o.pay==='COD'?'Collect '+inr(o.total):'Prepaid via '+esc(o.pay)}</div><button class='full sm' style='margin-top:10px' onclick='rAccept(${o.id})'>Accept delivery</button></div>`).join(''):`<div class='card mut'>You are online. Waiting for new orders near you…</div>`;
+return h}
+function accept(id){const o=S.orders.find(x=>x.id===id);adv(o)}
+function addProd(){
+ const n=$('#pn').value.trim(),pr=+$('#pp').value;
+ if(!n||!(pr>0))return toast('Enter product name and price');
+ S.products.unshift({id:Date.now(),name:n,price:pr,shop:S.user.name,dist:0.3,em:emojiFor(n),on:1});
+ render();toast('Listed. Customers can now see it');
+}
+function tog(id){const p=S.products.find(x=>x.id===id);p.on=p.on?0:1;render()}
+
+const STEPS=['Placed','Accepted','On the way','Delivered'];
+function track(st){return '<div class="track">'+STEPS.map((_,i)=>'<i class="'+(i<=st?'on':'')+'"></i>').join('')+'</div><div class="mut" style="margin-top:6px">'+STEPS[st]+'</div>'}
+
+function viewLogin(){
+ const r=S.role==='retailer',d=S.role==='rider';
+ return `<div style="padding-top:28px">${LOGO}
+ <h2 style="margin:20px 0 6px;font-size:36px;line-height:1.02;letter-spacing:-.04em">Local shops,<br><span style="color:var(--pri)">delivered fast.</span></h2>
+ <p class="mut" style="margin:0 0 18px">Order from retailers near you or sell your products to them.</p>
+ <div class="seg"><button class="${S.role==='customer'?'on':''}" onclick="set({role:'customer'})">Customer</button><button class="${r?'on':''}" onclick="set({role:'retailer'})">Retailer</button><button class="${d?'on':''}" onclick="set({role:'rider'})">Partner</button></div>
+ <div class="card"><label for="n">${r?'Shop name':'Your name'}</label><input id="n" autocomplete="name">
+ <label for="p">Mobile number</label><input id="p" inputmode="numeric" maxlength="10" autocomplete="tel">
+ ${r?'<label for="g">GSTIN (used to verify your shop)</label><input id="g" maxlength="15" placeholder="29ABCDE1234F1Z5">':''}
+ ${d?'<label for="v">Vehicle number</label><input id="v" maxlength="12" placeholder="KA01AB1234">':''}<button class="full" onclick="login()" ${S.verifying?'disabled':''}>${S.verifying?esc(S.verifying)+'…':(r?'Verify and log in':d?'Join as partner':'Log in')}</button></div></div>`;
+}
+function head(){
+ return `<div class="row" style="margin-bottom:12px">${LOGO}<button class="ghost sm" onclick="set({screen:'login',user:null,cart:{},verifying:null,online:false})">Log out</button></div>`;
+}
+function viewCust(){
+ let h=head();
+ if(!S.loc)return h+`<div class="card"><h3>Where should we deliver?</h3><p class="mut">Share your location to see shops near you.</p><button class="full" onclick="shareLoc()">Share my location</button></div>`;
+ h+=`<div class="seg"><button class="${S.tab==='shop'?'on':''}" onclick="set({tab:'shop'})">Shop</button><button class="${S.tab==='orders'?'on':''}" onclick="set({tab:'orders'})">My orders</button></div>`;
+ if(S.tab==='orders'){
+  const mine=S.orders.filter(o=>o.customer===S.user.name);
+  return h+(mine.length?mine.map(o=>`<div class="card"><div class="row"><b>${esc(o.shop)}</b><span class="price">${inr(o.total)}</span></div><div class="mut">${o.items.map(i=>esc(i.name)+' × '+i.q).join(', ')}</div><div class="mut">Pay ${esc(o.pay)} to the shop</div>${track(o.st)}${riderBlock(o)}</div>`).join(''):'<div class="card mut">No orders yet. Pick something from the Shop tab.</div>');
+ }
+ const q=S.q.toLowerCase(),list=S.products.filter(p=>p.on&&p.name.toLowerCase().includes(q)&&(S.cat==='All'||CATS[p.em]===S.cat)).sort((a,b)=>a.dist-b.dist);
+ h+=`<div class="hero"><span class="badge">⚡ 10–15 min delivery</span><div class="mut2">📍 ${esc(S.loc)}</div><h2>Everything local,<br>in minutes.</h2><input placeholder="Search milk, atta, medicines…" value="${esc(S.q)}" oninput="S.q=this.value;render(true)" id="sq" aria-label="Search products"></div><div class="chips">${[['All','✨'],['Dairy','🥛'],['Grocery','🌾'],['Pharmacy','💊'],['Fresh','🥬'],['Snacks','🍜'],['Home','🧴']].map(([c,e])=>`<button class="chip ${S.cat===c?'on':''}" onclick="set({cat:'${c}'})">${e} ${c}</button>`).join('')}</div><div class="offer"><b>Free delivery</b> on your first order</div>`;
+ h+='<div class="grid">'+list.map(p=>{const c=S.cart[p.id]||0;return `<div class="prod"><div class="tile">${p.em}</div><div style="font-weight:600;margin:6px 0 2px">${esc(p.name)}</div><div class="mut">${esc(p.shop)} · ${p.dist} km</div><div class="eta">⚡ ${Math.round(8+p.dist*4)} min</div><div class="row" style="margin-top:8px"><span class="price">${inr(p.price)}</span>${c?`<span class="step"><button onclick="qty(${p.id},-1)" aria-label="Remove one">−</button>${c}<button onclick="qty(${p.id},1)" aria-label="Add one">+</button></span>`:`<button class="sm" onclick="qty(${p.id},1)">Add</button>`}</div></div>`}).join('')+'</div>';
+ if(!list.length)h+='<div class="card mut">Nothing available for that search nearby.</div>';
+ const n=cartItems().reduce((a,x)=>a+x.q,0);
+ if(n)h+=`<div class="bar"><button onclick="set({sheet:'cart'})"><span>${n} item${n>1?'s':''}</span><span>View cart · ${inr(cartTotal())}</span></button></div>`;
+ if(S.sheet==='cart')h+=`<div class="sheet" onclick="if(event.target===this)set({sheet:null})"><div><h3 style="margin-bottom:10px">Your cart</h3>${cartItems().map(x=>`<div class="row" style="margin-bottom:8px"><div>${x.p.em} ${esc(x.p.name)}<div class="mut">${esc(x.p.shop)}</div></div><span class="step"><button onclick="qty(${x.p.id},-1)">−</button>${x.q}<button onclick="qty(${x.p.id},1)">+</button></span><b>${inr(x.p.price*x.q)}</b></div>`).join('')}
+ <h3 style="margin:14px 0 8px;font-size:16px">Pay the shop directly</h3>
+ ${[['COD','Cash on delivery'],['Paytm','Paytm'],['UPI','UPI']].map(([v,l])=>`<label class="opt ${S.pay===v?'sel':''}" style="color:var(--ink);font-size:15px"><input type="radio" name="pay" ${S.pay===v?'checked':''} onchange="set({pay:'${v}'})">${l}</label>`).join('')}
+ <button class="full" style="margin-top:6px" onclick="place()">Place order · ${inr(cartTotal())}</button></div></div>`;
+ return h;
+}
+function viewRet(){
+ const me=S.user.name,mine=S.products.filter(p=>p.shop===me),ords=S.orders.filter(o=>o.shop===me);
+ const done=ords.filter(o=>o.st===3),earn=done.reduce((a,o)=>a+o.total,0);
+ let h=head()+`<div class="row" style="margin-bottom:10px"><div><b>${esc(me)}</b><div class="mut">GSTIN ${esc(S.user.gstin)}</div></div><span class="pill ok">Verified</span></div>
+ <div class="seg"><button class="${S.tab==='prod'?'on':''}" onclick="set({tab:'prod'})">Products</button><button class="${S.tab==='ord'?'on':''}" onclick="set({tab:'ord'})">Orders${ords.filter(o=>o.st===0).length?' ('+ords.filter(o=>o.st===0).length+')':''}</button></div>`;
+ if(S.tab==='ord'){
+  h+=`<div class="card"><div class="row"><span class="mut">Sales paid directly to you</span><b>${inr(earn)}</b></div><div class="row"><span class="mut">Platform fee (${FEE*100}%)</span><b>${inr(Math.round(earn*FEE))}</b></div></div>`;
+  return h+(ords.length?ords.map(o=>`<div class="card"><div class="row"><b>${esc(o.customer)}</b><span class="price">${inr(o.total)}</span></div><div class="mut">${o.items.map(i=>esc(i.name)+' × '+i.q).join(', ')}</div><div class="mut">${esc(o.pay)} · ${esc(o.loc||'')}</div>${o.st===0?`<button class="full sm" style="margin-top:10px" onclick="accept(${o.id})">Accept order</button>`:track(o.st)+(o.rider?'<div class="mut" style="margin-top:6px">Rider: '+esc(o.rider)+'</div>':'<div class="mut" style="margin-top:6px">Waiting for a rider</div>')}</div>`).join(''):'<div class="card mut">No orders yet. Customers see your products once listed and in stock.</div>');
+ }
+ h+=`<div class="card"><h3 style="font-size:17px;margin-bottom:8px">List a product</h3><label for="pn">Product name</label><input id="pn"><label for="pp">Price (₹)</label><input id="pp" type="number" inputmode="numeric"><button class="full" onclick="addProd()">List product</button></div>`;
+ h+=mine.length?mine.map(p=>`<div class="card row"><div>${p.em} <b>${esc(p.name)}</b><div class="mut">${inr(p.price)} · ${p.on?'Available':'Out of stock'}</div></div><button class="sw ${p.on?'on':''}" onclick="tog(${p.id})" role="switch" aria-checked="${!!p.on}" aria-label="Availability"></button></div>`).join(''):'<div class="card mut">Your products will show here. Customers only see items marked available.</div>';
+ return h;
+}
+function render(keep){
+ const f=document.activeElement&&document.activeElement.id,pos=f==='sq'?$('#sq').selectionStart:0;
+ if(S.screen==='ret'&&S.user)S.retailerShop=S.user.name;
+ $('#app').innerHTML=S.screen==='login'?viewLogin():S.screen==='cust'?viewCust():S.screen==='rider'?viewRider():viewRet();
+ if(f==='sq'){const e=$('#sq');if(e){e.focus();e.setSelectionRange(pos,pos)}}
+}
+render();
+</script></body></html>
